@@ -1,0 +1,25 @@
+{
+  "usuarios": [
+    {
+      "id": 2,
+      "nome": "Ivan",
+      "ativo": false
+    },
+    {
+      "id": 3,
+      "nome": "Reis",
+      "ativo": true
+    },
+    {
+      "id": 4,
+      "nome": "Torres",
+      "ativo": true
+    },
+    {
+      "id": 5,
+      "nome": "Portugal",
+      "ativo": true
+    }
+  ],
+  "nextID": 6
+}
