@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -9,6 +10,7 @@ const URL = "http://localhost"
 // Função especial do express para ler o corpo da requisição.
 // MUITO INPORTANTE: Sempre que for usar o express.json() ele deve vir antes das rotas.
 app.use(express.json());
+app.use(cors());
 
 // Nossa missão é criar o primeiro CRUD.
 // CRUD é a sigla para Create, Read, Update e Delete.
@@ -62,20 +64,21 @@ app.get('/', (req, res) => {
 app.get('/usuarios', (req, res) => {
   const usuarios = usuariosFile.usuarios;
 
-  const listaHtmlUsuarios = usuarios.map(usuario => 
-    `<li>
-      ID: ${usuario.id},
-      <a href="${URL}:${port}/usuarios/${usuario.id}">Nome: ${usuario.nome}</a>,
-      Ativo: ${usuario.ativo ? 'Sim' : 'Não'}
-    </li>`
-  ).join('<br>');
+  // Mapeia os usuários para um formato JSON
+  const usuariosJson = usuarios.map(usuario => ({
+    id: usuario.id,
+    nome: usuario.nome,
+    ativo: usuario.ativo,
+    link: `${URL}:${port}/usuarios/${usuario.id}`
+  }));
 
-  const htmlCompleto = `<ul>${listaHtmlUsuarios}</ul><br>
-    <h2>Digite no fim da URL um Id de usuário, ou Clique nos links acima</h2>
-    <h3>Exemplo: ${URL}:${port}/usuarios/1</h3>`;
-
-  return res.status(200).send(htmlCompleto);
+  return res.status(200).json({
+    usuarios: usuariosJson,
+    mensagem: 'Digite no fim da URL um Id de usuário, ou clique nos links acima',
+    exemplo: `${URL}:${port}/usuarios/1`
+  });
 });
+
 
 
 
