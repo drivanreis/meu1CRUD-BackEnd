@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "restaura": "cp ./database/bkp/bkp-fakeBD.json ./database/fakeBD.json"
   },
   "keywords": [],
   "author": "",
